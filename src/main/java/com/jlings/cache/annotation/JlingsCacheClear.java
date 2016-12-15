@@ -1,7 +1,5 @@
 package com.jlings.cache.annotation;
 
-import com.sun.istack.internal.NotNull;
-
 import java.lang.annotation.*;
 
 /**
