@@ -132,7 +132,7 @@ public class CacheAspect {
             }
         }
 
-        return sb.toString().replace(":", "=");
+        return sb.toString();
     }
 
     /**
@@ -170,8 +170,7 @@ public class CacheAspect {
                 sb.append(".").append(JSON.toJSONString(arguments[i]));
             }
         }
-        //为了方便查看redis,改key
-        return sb.toString().replace(":", "=");
+        return sb.toString();
     }
 
 
