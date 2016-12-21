@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.jlings.cache.CacheConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.jlings.cache.aspect.CacheAspect

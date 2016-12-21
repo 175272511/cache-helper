@@ -59,13 +59,13 @@ public class CacheAspect {
             if (second > 0){
                 boundValueOps.expire(second, TimeUnit.SECONDS);
             }
-            LOGGER.debug("redis cache ===> key:{}, value: {}",cacheKey, value);
+            LOGGER.debug("redis cache ===> key: {}, value: {}",cacheKey, value);
             return value;
 
         }else{
             try {
                 value = redisTemplate.opsForValue().get(cacheKey);
-                LOGGER.debug("return cache ===> key:{}, value:{}",cacheKey, value);
+                LOGGER.debug("return cache ===> key: {}, value: {}",cacheKey, value);
             }catch (Exception e){
                 LOGGER.error("return cache error", e);
                 //重置缓存, 解决对象更改导致的异常问题
