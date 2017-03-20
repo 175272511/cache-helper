@@ -104,7 +104,7 @@ public class CacheAspect {
             cacheKey = ((JlingsCacheClear)annotation).key();
         }
         if (StringUtils.isEmpty(cacheKey)){
-            cacheKey = CACHE_NAME + getDefaultKey(targetName, methodName, arguments) + paramKey;
+            cacheKey = CACHE_NAME + getDefaultKey(targetName, methodName) + paramKey;
         }else{
             cacheKey = CACHE_NAME + cacheKey + paramKey;
         }
@@ -162,14 +162,9 @@ public class CacheAspect {
     /**
      * defaultKey 包名+类名+方法名
      */
-    private String getDefaultKey(String targetName, String methodName, Object[] arguments) {
+    private String getDefaultKey(String targetName, String methodName) {
         StringBuffer sb = new StringBuffer();
         sb.append(targetName).append(".").append(methodName);
-        if ((arguments != null) && (arguments.length != 0)) {
-            for (int i = 0; i < arguments.length; i++) {
-                sb.append(".").append(JSON.toJSONString(arguments[i]));
-            }
-        }
         return sb.toString();
     }
 
