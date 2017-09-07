@@ -51,15 +51,20 @@ public class CacheAspect {
 
         BoundValueOperations<String, Object> boundValueOps = redisTemplate.boundValueOps(cacheKey);
         int second = jlingsCache.expireTime();
-        Object value;
+        Object value = null;
         //缓存不存在
         if (boundValueOps.setIfAbsent("")){
-            value = joinPoint.proceed();
-            boundValueOps.set(value);
-            if (second > 0){
-                boundValueOps.expire(second, TimeUnit.SECONDS);
+            try{
+                value = joinPoint.proceed();
+                boundValueOps.set(value);
+                if (second > 0){
+                    boundValueOps.expire(second, TimeUnit.SECONDS);
+                }
+                LOGGER.debug("redis cache ===> key: {}, value: {}",cacheKey, value);
+            }catch (Exception e){
+                LOGGER.error("proceed error", e);
+                redisTemplate.delete(cacheKey);
             }
-            LOGGER.debug("redis cache ===> key: {}, value: {}",cacheKey, value);
             return value;
 
         }else{
