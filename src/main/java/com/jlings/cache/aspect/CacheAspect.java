@@ -65,6 +65,7 @@ public class CacheAspect {
         }else{
             try {
                 value = redisTemplate.opsForValue().get(cacheKey);
+                resetValue(value, cacheKey);
                 LOGGER.debug("return cache ===> key: {}, value: {}",cacheKey, value);
             }catch (Exception e){
                 LOGGER.error("return cache error", e);
@@ -76,7 +77,15 @@ public class CacheAspect {
             return StringUtils.isEmpty(value) ? joinPoint.proceed() : value;
         }
 
+    }
 
+    private void resetValue(Object value, String cacheKey){
+        if (value == null){
+            redisTemplate.delete(cacheKey);
+        }
+        if (value instanceof String && "".equals(value)){
+            redisTemplate.delete(cacheKey);
+        }
     }
 
     @AfterReturning(value = "cacheClearMethod(jlingsCacheClear)")
