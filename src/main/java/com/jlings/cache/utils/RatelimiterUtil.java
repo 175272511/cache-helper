@@ -23,7 +23,7 @@ public class RatelimiterUtil {
      * @param qps
      * @return
      */
-    public static RateLimiter getRateLimiter(String source, int qps){
+    public static RateLimiter getRateLimiter(String source, double qps){
 
         String key = source + "." + qps;
         RateLimiter rateLimiter = RATE_MAP.get(key);
@@ -46,7 +46,7 @@ public class RatelimiterUtil {
      * @param qps
      * @return
      */
-    public static boolean tryAcquire(String source, int qps){
+    public static boolean tryAcquire(String source, double qps){
         RateLimiter rateLimiter = getRateLimiter(source, qps);
         return rateLimiter.tryAcquire();
     }
