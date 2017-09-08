@@ -1,6 +1,8 @@
 package com.jlings.cache.utils;
 
 import com.google.common.util.concurrent.RateLimiter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by liuhui on 2017/9/8.
  */
 public class RatelimiterUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RatelimiterUtil.class);
 
     private static final Map<String, RateLimiter> RATE_MAP = new ConcurrentHashMap<>();
 
@@ -29,6 +33,7 @@ public class RatelimiterUtil {
                 if (rateLimiter == null){
                     rateLimiter = RateLimiter.create(qps);
                     RATE_MAP.put(key, rateLimiter);
+                    LOGGER.debug("create ratelimiter {}", key);
                 }
             }
         }
