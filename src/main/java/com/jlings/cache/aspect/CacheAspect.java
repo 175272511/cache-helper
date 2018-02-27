@@ -36,15 +36,16 @@ public class CacheAspect {
 
     private static final String CACHE_NAME = "JLINGS_CACHE:";
 
-    //拦截注解
-    @Pointcut(value="@annotation(jlingsCache)", argNames="jlingsCache")
-    private void cacheMethod(JlingsCache jlingsCache){}
+//    //拦截注解
+//    @Pointcut(value="@annotation(jlingsCache)", argNames="jlingsCache")
+//    private void cacheMethod(JlingsCache jlingsCache){}
+//
+//    //拦截注解
+//    @Pointcut(value="@annotation(jlingsCacheClear)", argNames="jlingsCacheClear")
+//    private void cacheClearMethod(JlingsCacheClear jlingsCacheClear){}
 
-    //拦截注解
-    @Pointcut(value="@annotation(jlingsCacheClear)", argNames="jlingsCacheClear")
-    private void cacheClearMethod(JlingsCacheClear jlingsCacheClear){}
 
-    @Around(value = "cacheMethod(jlingsCache)")
+    @Around("@annotation(jlingsCache)")
     public Object cacheAround(ProceedingJoinPoint joinPoint, JlingsCache jlingsCache) throws Throwable {
 
         String cacheKey = getCacheKey(joinPoint, jlingsCache);
